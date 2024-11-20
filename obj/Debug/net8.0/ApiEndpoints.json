@@ -16,6 +16,11 @@
         "Name": "size",
         "Type": "System.Int32",
         "IsRequired": false
+      },
+      {
+        "Name": "sortBy",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [

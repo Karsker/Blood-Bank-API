@@ -69,6 +69,26 @@ Sample response in the JSON format:
 
 The data can be paginated by providing the `pages` and `size` params with the request. For example, to get only 3 entries per page, and get the data of the 2nd page, the request would look like: `https://localhost:7042/api/BloodBank?pages=2&size=3`.
 
+#### Sorting
+The response can be sorted by using the `sortBy` parameter in the request. It accepts the following values (case insensitive):
+
+| Value | Description |
+| --- | --- |
+| donorname | Name of the donor |
+| age | Age of the donor |
+| donorbloodtype | Blood type |
+| status | Blood status |
+| collectiondate | Date of collection |
+| expirationdate | Date of expiration |
+| quantity | Quantity |
+
+For example, to sort by collection date, use the following query: `/api/BloodBank?SortBy=collectionDate`
+
+
+
+
+
+
 ### Retrieve Data For A Specific Entry
 To retrieve data for a specific entry by its ID, send a get request to the following dynamic endpoint with the ID of the entry: `/api/BloodBank/{id}`.
 

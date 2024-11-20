@@ -145,12 +145,59 @@ namespace BloodBankMgmt.Controllers
 
         // 1. Get all entries
         [HttpGet]
-        public ActionResult<IEnumerable<BloodBankEntry>> GetAll(int pages = 0, int size = 0)
+        public ActionResult<IEnumerable<BloodBankEntry>> GetAll(int pages = 0, int size = 0, string? sortBy = null)
         {
             if (pages != 0 && size != 0)
             {   
                 var res = entries.Skip((pages-1)*size).Take(size).ToList();
                 return res;
+            }
+
+            // Check if sort parameter is provided
+            if (sortBy != null)
+            {
+                if (sortBy.Equals("donorName", StringComparison.OrdinalIgnoreCase))
+                {
+                    var res = entries.OrderBy(e => e.DonorName).ToList();
+                    return res;
+                }
+
+                if (sortBy.Equals("age", StringComparison.OrdinalIgnoreCase))
+                {
+                    var res = entries.OrderBy(e => e.DonorAge).ToList();
+                    return res;
+                }
+
+                if (sortBy.Equals("quantity", StringComparison.OrdinalIgnoreCase))
+                {
+                    var res = entries.OrderBy(e => e.Quantity).ToList();
+                    return res;
+                }
+
+                if (sortBy.Equals("status", StringComparison.OrdinalIgnoreCase))
+                {
+                    var res = entries.OrderBy(e => e.Status).ToList();
+                    return res;
+                }
+
+                if (sortBy.Equals("collectionDate", StringComparison.OrdinalIgnoreCase))
+                {
+                    var res = entries.OrderBy(e => e.CollectionDate).ToList();
+                    return res;
+                }
+
+                if (sortBy.Equals("expirationDate", StringComparison.OrdinalIgnoreCase))
+                {
+                    var res = entries.OrderBy(e => e.ExpirationDate).ToList();
+                    return res;
+                }
+
+                if (sortBy.Equals("donorBloodType", StringComparison.OrdinalIgnoreCase))
+                {
+                    var res = entries.OrderBy(e => e.DonorBloodType).ToList();
+                    return res;
+                }
+
             }
             return entries;
         }
