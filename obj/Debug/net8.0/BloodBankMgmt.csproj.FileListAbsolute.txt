@@ -30,3 +30,4 @@ C:\Users\karth\Code\Chubb Training\Assignments\Assignment-9 (.NET API)\BloodBank
 C:\Users\karth\Code\Chubb Training\Assignments\Assignment-9 (.NET API)\BloodBankMgmt\obj\Debug\net8.0\BloodBankMgmt.pdb
 C:\Users\karth\Code\Chubb Training\Assignments\Assignment-9 (.NET API)\BloodBankMgmt\obj\Debug\net8.0\BloodBankMgmt.genruntimeconfig.cache
 C:\Users\karth\Code\Chubb Training\Assignments\Assignment-9 (.NET API)\BloodBankMgmt\obj\Debug\net8.0\ref\BloodBankMgmt.dll
+C:\Users\karth\Code\Chubb Training\Assignments\Assignment-9 (.NET API)\BloodBankMgmt\obj\Debug\net8.0\BloodBankMgmt.sourcelink.json

@@ -203,12 +203,17 @@ namespace BloodBankMgmt.Controllers
             }
 
             // Update the entry
-            if (entry.Status != null)
+            if (entry.Status != null && bloodStatus.Contains(entry.Status.ToUpper()))
             {
                 entryInMem.Status = entry.Status;
             }
 
-            if (entry.DonorBloodType != null && bloodTypes.Contains(entry.DonorBloodType))
+            if (entry.DonorAge != null && entry.DonorAge >= 18)
+            {
+                entryInMem.DonorAge = entry.DonorAge;
+            }
+
+            if (entry.DonorBloodType != null && bloodTypes.Contains(entry.DonorBloodType.ToUpper()))
             {
                 entryInMem.DonorBloodType = entry.DonorBloodType;
             }
@@ -223,7 +228,7 @@ namespace BloodBankMgmt.Controllers
                 entry.DonorName = entry.DonorName;
             }
 
-            if (entry.Quantity != null)
+            if (entry.Quantity != null && entry.Quantity > 0)
             {
                 entryInMem.Quantity = entry.Quantity;
             }
@@ -232,6 +237,13 @@ namespace BloodBankMgmt.Controllers
             {
                 entryInMem.CollectionDate = entry.CollectionDate;
             }
+
+            if (entry.ExpirationDate != null && entry.ExpirationDate > entryInMem.CollectionDate)
+            {
+                entryInMem.ExpirationDate = entry.ExpirationDate;
+            }
+
+
             
 
             return entryInMem;

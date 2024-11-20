@@ -101,7 +101,36 @@ The values for `status` and `donorBloodType` may be in any case as long as they 
 
 If any of the above values are missing or are not in the valid format, the request fails with 400 (Bad Request) status code.
 
+On success, the status code 200 (OK) is returned along with the added entry.
 
+
+### Updating An Entry
+To update an entry, send a PUT request to the endpoint: `/api/BloodBank` with the body containing the update blood bank entry JSON object. It is not required to include all the fields in the request. The fields that are included and valid are updated.
+For example, the current entry for id 1 is:
+```
+ {
+        "id": 1,
+        "donorName": "John Doe",
+        "donorAge": 35,
+        "donorBloodType": "APOS",
+        "contactInfo": "johndoe@email.com",
+        "quantity": 450.04,
+        "collectionDate": "2024-10-10T00:00:00",
+        "expirationDate": "2024-11-10T00:00:00",
+        "status": "AVAILABLE"
+    },
+```
+
+To update the status to `REQUESTED`, send a PUT request with the body:
+```
+{
+  "id": 1,
+  "status": "Requested"
+}
+```
+
+Only the `status` field gets updated. For updating, providing the `id` field is necessary. If the `id` field is not provided in the request, 404 status code (Not Found) is returned.
+On seccessful updation, the updated entry is returned.
 
 
 
