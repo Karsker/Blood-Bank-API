@@ -36,7 +36,7 @@ The values for `donorBloodType` and `status` fields are validated in the control
 The data is stored in an in-memory list. Hence, the data does not persist between application runs.
 
 ## Endpoints
-### Retrie All Entries
+### Retrieve All Entries
 To retrieve all the entries in the in the in-memory list, send a `GET` request to the endpoint: `/api/BloodBank`.
 
 Sample response in the JSON format:
