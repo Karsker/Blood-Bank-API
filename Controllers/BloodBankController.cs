@@ -1,5 +1,6 @@
 ﻿using BloodBankMgmt.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace BloodBankMgmt.Controllers
 {
@@ -36,6 +37,15 @@ namespace BloodBankMgmt.Controllers
             new BloodBankEntry(10, "Jennifer Garcia", 41, "jgarcia@email.com", "BPOS", 421.18, "2024-10-17", "2024-11-17", "REQUESTED"),
 
         };
+
+
+        // Function to check if an email is valid
+        static bool IsValidEmail(string email)
+        {
+            string pattern = @"^[\w\.-]+@[\w\.-]+\.\w{2,3}$";
+            Regex regex = new Regex(pattern);
+            return regex.IsMatch(email);
+        }
 
         // Function to check if a blood bank entry is valid
         static bool EntryIsValid(BloodBankEntry entry, out string? message)
@@ -97,9 +107,17 @@ namespace BloodBankMgmt.Controllers
                 return false;
             }
 
+
+            // Check if contact info (email) is valid
+            if (!IsValidEmail(entry.ContactInfo))
+            {
+                message = "Invalid contactInfo format (Should be an email address)";
+                return false;
+            }
             // Check if blood type is valid
             if (!bloodTypes.Contains(entry.DonorBloodType.ToUpper())) {
                 message = $"Invalid blood type: {entry.DonorBloodType}";
+                return false;
             }
 
             // Check if status is valid
@@ -171,30 +189,8 @@ namespace BloodBankMgmt.Controllers
             return entry;
         }
 
-        // 3. Add multiple entries
-        [HttpPost("bulk")]
-        public ActionResult<IEnumerable<BloodBankEntry>> AddAll(List<BloodBankEntry> postEntries) {
-            if (!postEntries.Any()) {
-                return BadRequest("No valid entries found to add");
-            }
 
-            // Get the ID of the latest entry in the entries
-            int lastId = entries.Any() ? entries.Max(e => e.Id) : 0;
-
-            foreach (var entry in postEntries) {
-                if (entry == null)
-                {
-                    continue;
-                }
-
-                entry.Id = ++lastId;
-                entries.Add(entry);
-            }
-
-            return postEntries;
-        }
-
-        // 4. Update an existing entry
+        // 3. Update an existing entry
         [HttpPut]
         public ActionResult<BloodBankEntry> Update(BloodBankEntry entry) { 
             var entryInMem = entries.Find(e => e.Id == entry.Id);
@@ -218,7 +214,7 @@ namespace BloodBankMgmt.Controllers
                 entryInMem.DonorBloodType = entry.DonorBloodType;
             }
 
-            if (entry.ContactInfo != null)
+            if (entry.ContactInfo != null && !IsValidEmail(entry.ContactInfo))
             {
                 entryInMem.ContactInfo = entry.ContactInfo;
             }
@@ -249,7 +245,7 @@ namespace BloodBankMgmt.Controllers
             return entryInMem;
         }
 
-        // 5. Delete an entry
+        // 4. Delete an entry
         [HttpDelete("{id}")]
         public ActionResult<IEnumerable<BloodBankEntry>> Delete(int id)
         {
@@ -263,7 +259,7 @@ namespace BloodBankMgmt.Controllers
             return NoContent();
         }
 
-        // Search
+        // 5. Search
         [HttpGet("search")]
         public ActionResult<IEnumerable<BloodBankEntry>> Filter(string? bloodType = null, string? status = null, string? donorName = null)
         {

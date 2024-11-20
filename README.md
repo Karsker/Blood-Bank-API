@@ -189,3 +189,6 @@ The `status` parameter can be used to retrieve only `AVAILABLE` blood sample ent
     }
 ]
 ```
+
+## Screenshots
+The screenshots of the request and response for each endpoint can be found in the Screenshots directory. The screenshots for both Swagger and Postman are provided in their respective sub directories.
