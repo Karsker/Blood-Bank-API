@@ -212,3 +212,10 @@ The `status` parameter can be used to retrieve only `AVAILABLE` blood sample ent
 
 ## Screenshots
 The screenshots of the request and response for each endpoint can be found in the Screenshots directory. The screenshots for both Swagger and Postman are provided in their respective sub directories.
+
+## Running Locally
+To run the API locally, clone this repository or download the zip file and extract to a folder. 
+1. Open Visual Studio
+2. If not already installed, install   the **ASP.NET and web development** workload from Visual Studio Installer
+3. In Visual Studio, click on **Open a project or solution** and select the `BloodBankMgmt.sln` file
+4. After the solution loads, click on the **Start** button to run the program.
