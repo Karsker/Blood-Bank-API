@@ -133,4 +133,59 @@ Only the `status` field gets updated. For updating, providing the `id` field is 
 On seccessful updation, the updated entry is returned.
 
 
+### Deleting An Entry
+To delte an entry, send a DELETE request to the endpoint `/api/BloodBank/{id}`, replacing `{id}` with the `id` of the entry to delete. If an entry with the specified `id` does not exist, a 404 status code (Not Found) is returned. On successful deletion, 204 (No Content) status is returned.
 
+### Filtering/Searching Entries
+The endpoint `/api/BloodBank/search/` allows filtering the entries by the following parameters:
+- Blood Type
+- Status
+- Donor Name
+
+If multiple parameters are specified, the priority for the parameters are followed in the order specified above. That is, the status filter is applied after the blood type filter, followed by donor name.
+
+For example, the following URL fetches entries that have `BPOS` blood group: `/api/BloodBank/search?bloodType=BPOS`.
+The request returns the following response for the data at the time of writing:
+```
+[
+    {
+        "id": 5,
+        "donorName": "David Lee",
+        "donorAge": 39,
+        "donorBloodType": "BPOS",
+        "contactInfo": "dlee@email.com",
+        "quantity": 399.87,
+        "collectionDate": "2024-09-16T00:00:00",
+        "expirationDate": "2024-10-16T00:00:00",
+        "status": "AVAILABLE"
+    },
+    {
+        "id": 10,
+        "donorName": "Jennifer Garcia",
+        "donorAge": 41,
+        "donorBloodType": "BPOS",
+        "contactInfo": "jgarcia@email.com",
+        "quantity": 421.18,
+        "collectionDate": "2024-10-17T00:00:00",
+        "expirationDate": "2024-11-17T00:00:00",
+        "status": "REQUESTED"
+    }
+]
+```
+
+The `status` parameter can be used to retrieve only `AVAILABLE` blood sample entries: `/api/BloodBank/search?bloodType=BPOS&status=AVAILABLE`. The response then is:
+```
+[
+    {
+        "id": 5,
+        "donorName": "David Lee",
+        "donorAge": 39,
+        "donorBloodType": "BPOS",
+        "contactInfo": "dlee@email.com",
+        "quantity": 399.87,
+        "collectionDate": "2024-09-16T00:00:00",
+        "expirationDate": "2024-10-16T00:00:00",
+        "status": "AVAILABLE"
+    }
+]
+```

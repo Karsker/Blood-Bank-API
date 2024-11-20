@@ -250,7 +250,7 @@ namespace BloodBankMgmt.Controllers
         }
 
         // 5. Delete an entry
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult<IEnumerable<BloodBankEntry>> Delete(int id)
         {
             var entryInMem = entries.Find(e => e.Id == id);
@@ -260,7 +260,7 @@ namespace BloodBankMgmt.Controllers
             }
 
             entries.Remove(entryInMem);
-            return CreatedAtAction(nameof(GetAll), entries);
+            return NoContent();
         }
 
         // Search
