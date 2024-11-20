@@ -72,6 +72,34 @@ The data can be paginated by providing the `pages` and `size` params with the re
 ### Retrieve Data For A Specific Entry
 To retrieve data for a specific entry by its ID, send a get request to the following dynamic endpoint with the ID of the entry: `/api/BloodBank/{id}`.
 
+### Adding Entries
+To add an entry for a blood sample to the database (in-memory), send a POST request to the endpoint: `/api/BloodBank`. The request body (JSON) must contain each of the following fields:
+- `donorName`: A string value
+- `donorAge`: Number greater than or equal to 18
+- `donorBloodType`: Any one of the valid values for blood type as defined in the `BloodBankEntry` model as a string
+- `contactInfo`: A string representing an email address (should be in valid format)
+- `quantity`: A number
+- `collectionDate`: A string in valid date format (YYYY-MM-DD)
+- `expirationDate`: A string in valid date format (YYYY-MM-DD)
+- `status`: Any one of the valid values for blood status as defined in the `BloodBankEntry` model as a string
+
+The following is a sample POST request body
+```
+{
+  "donorName": "Peter",
+  "donorAge": 18,
+  "donorBloodType": "ANEG",
+  "contactInfo": "peter@gmail.com",
+  "quantity": 350,
+  "collectionDate": "2024-11-20",
+  "expirationDate": "2024-11-22",
+  "status": "AVAILABLE"
+}
+```
+
+The values for `status` and `donorBloodType` may be in any case as long as they are valid. They are automatically converted to uppercase before adding to the database. While `id` may be provided in the body, it is overridden (auto generated) to the next available value in the database, and hence is not necessary to be provided.
+
+If any of the above values are missing or are not in the valid format, the request fails with 400 (Bad Request) status code.
 
 
 
